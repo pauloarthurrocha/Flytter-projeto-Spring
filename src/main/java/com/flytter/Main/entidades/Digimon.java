@@ -2,9 +2,20 @@ package com.flytter.main.entidades;
 
 import java.io.Serializable;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+
+@Entity
 public class Digimon implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 	private String name;
 	private String level;
 	private String url;
@@ -13,7 +24,7 @@ public class Digimon implements Serializable {
 
 	}
 
-	public Digimon(String name, String level, String url) {
+	public Digimon(Long id,String name, String level, String url) {
 		super();
 		this.name = name;
 		this.level = level;
@@ -48,11 +59,14 @@ public class Digimon implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((level == null) ? 0 : level.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((url == null) ? 0 : url.hashCode());
 		return result;
 	}
+
+	
 
 	@Override
 	public boolean equals(Object obj) {
@@ -63,6 +77,11 @@ public class Digimon implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Digimon other = (Digimon) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
 		if (level == null) {
 			if (other.level != null)
 				return false;
@@ -79,6 +98,14 @@ public class Digimon implements Serializable {
 		} else if (!url.equals(other.url))
 			return false;
 		return true;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 }

@@ -14,7 +14,7 @@ public class DigimonRecursos {
 	@GetMapping
 	public ResponseEntity<Digimon> findAll() {
 
-		Digimon dig = new Digimon("Koromon", "In Training", "https://digimon.shadowsmith.com/img/koromon.jpg");
+		Digimon dig = new Digimon(null,"Koromon", "In Training", "https://digimon.shadowsmith.com/img/koromon.jpg");
 		return ResponseEntity.ok().body(dig);
 
 	}
