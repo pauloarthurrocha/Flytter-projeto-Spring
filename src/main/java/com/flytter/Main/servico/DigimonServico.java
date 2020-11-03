@@ -3,6 +3,7 @@ package com.flytter.main.servico;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.flytter.main.entidades.Digimon;
@@ -34,6 +35,10 @@ public class DigimonServico {
 	}
 
 	public void delete(String name) {
-		repositorio.delete(getDigimonByName(name));
+		try {
+			repositorio.delete(getDigimonByName(name));
+		} catch (EmptyResultDataAccessException e) {
+			throw new ResourceNotFoundException(name);
+		}
 	}
 }
