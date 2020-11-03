@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.flytter.main.entidades.Digimon;
 import com.flytter.main.repositorios.DigimonRepositorio;
+import com.flytter.main.servico.exceptions.ResourceNotFoundException;
 
 @Service
 public class DigimonServico {
@@ -19,8 +20,20 @@ public class DigimonServico {
 	}
 
 	public Digimon getDigimonByName(String name) {
-		List<Digimon> DigimonName = repositorio.findByName(name);
-		return DigimonName.get(0);
+		try {
+			List<Digimon> DigimonName = repositorio.findByName(name);
+			return DigimonName.get(0);
+		} catch (RuntimeException e) {
+			throw new ResourceNotFoundException(name);
+		}
+
 	}
 
+	public Digimon insert(Digimon obj) {
+		return repositorio.save(obj);
+	}
+
+	public void delete(String name) {
+		repositorio.delete(getDigimonByName(name));
+	}
 }

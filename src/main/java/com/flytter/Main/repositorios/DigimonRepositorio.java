@@ -11,5 +11,6 @@ public interface DigimonRepositorio extends JpaRepository<Digimon, String> {
 
 	 List<Digimon>findByName(String name);
 
+
 }
 
